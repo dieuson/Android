@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Random</string>
+    <string name="d_a_six_faces">Six faces Dice</string>
+    <string name="d_a_vingt_faces">Twenty faces Dice</string>
+    <string name="image_accueuil_de">image_accueuil_de</string>
+    <string name="type_de_de">Kind of roll</string>
+    <string name="roll_the_dice">Roll the dice</string>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="visu_temp">apercu du temps</string>
+</resources>

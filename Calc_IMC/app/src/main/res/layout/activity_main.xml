@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.dieuson.myapplication.MainActivity"
+    android:background="#232436">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_poid"
+        android:textSize="28sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/text_color"
+        android:text="@string/text_poids" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:layout_marginTop="12sp"
+        android:id="@+id/poids"
+        android:background="#21C2F9"
+        android:layout_below="@+id/text_poid"
+        android:layout_centerHorizontal="true"
+        android:freezesText="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_calcul"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/taille"
+        android:layout_alignStart="@+id/taille"
+        android:layout_alignRight="@+id/taille"
+        android:layout_alignEnd="@+id/taille"
+        android:text="@string/text_calcul"
+        android:textColor="#232436"
+        android:background="#e05d5d"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:layout_marginTop="18dp"
+        android:id="@+id/taille"
+        android:background="#21C2F9"
+        android:layout_below="@+id/text_taille"
+        android:layout_alignLeft="@+id/poids"
+        android:layout_alignStart="@+id/poids" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/text_taille"
+        android:textSize="28sp"
+        android:textColor="@color/text_color"
+        android:text="@string/text_taille"
+        android:layout_below="@+id/poids"
+        android:layout_alignLeft="@+id/text_poid"
+        android:layout_alignStart="@+id/text_poid" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bouton_reset"
+        android:text="@string/text_raz"
+        android:textColor="#232436"
+        android:background="#e05d5d"
+        android:layout_marginTop="17dp"
+        android:layout_below="@+id/button_calcul"
+        android:layout_alignLeft="@+id/button_calcul"
+        android:layout_alignStart="@+id/button_calcul"
+        android:layout_alignRight="@+id/button_calcul"
+        android:layout_alignEnd="@+id/button_calcul" />
+
+    <RadioButton
+        android:buttonTint="#F2F2F2"
+        android:textColor="@color/text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cm"
+        android:layout_alignBaseline="@+id/text_taille"
+        android:layout_alignBottom="@+id/text_taille"
+        android:layout_alignLeft="@+id/taille"
+        android:layout_alignStart="@+id/taille"
+        android:text="@string/mesure1"
+        tools:ignore="UnusedAttribute" />
+
+    <RadioButton
+        android:textColor="@color/text_color"
+        android:buttonTint="#F2F2F2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/metres"
+        android:layout_alignBaseline="@+id/text_taille"
+        android:layout_alignBottom="@+id/text_taille"
+        android:layout_toRightOf="@+id/text_poid"
+        android:layout_toEndOf="@+id/text_poid"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:text="@string/mesure2"
+        tools:ignore="UnusedAttribute" />
+
+    <ImageView
+        app:srcCompat="@drawable/calculer_son_imc"
+        android:id="@+id/tab_imc"
+        android:contentDescription="@string/description_image"
+        android:layout_width="200dp"
+        android:scaleType="fitXY"
+        android:background="@color/background_color"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_height="130dp" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:id="@+id/Resultat"
+
+        android:textColor="#F2F2F2"
+        android:textSize="20sp"
+
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:textColor="@color/text_color"
+        android:textSize="30sp"
+        android:text="@string/Resultat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/affichage_resultat"
+        tools:ignore="RelativeOverlap"
+        android:layout_alignTop="@+id/tab_imc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+</RelativeLayout>

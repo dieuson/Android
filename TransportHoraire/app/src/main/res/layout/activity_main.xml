@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222734">
+
+    <Button
+        android:text="Suivant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="37dp"
+        android:id="@+id/bouton_suivant"
+        tools:ignore="HardcodedText" />
+
+    <RadioButton
+        android:text="TRAM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tram"
+        tools:ignore="HardcodedText"
+        android:layout_below="@+id/bus"
+        android:layout_alignStart="@+id/bus"
+        style="@style/radio_buttons"
+        android:layout_marginTop="55dp" />
+
+    <RadioButton
+        android:text="BUS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/bus"
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/rer"
+        style="@style/radio_buttons"
+        android:layout_centerHorizontal="true" />
+
+    <RadioButton
+        android:text="METRO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/metro"
+        tools:ignore="HardcodedText"
+        android:layout_below="@+id/tram"
+        android:layout_alignStart="@+id/tram"
+        style="@style/radio_buttons"
+        android:layout_marginTop="64dp" />
+
+    <RadioButton
+        android:text="RER"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rer"
+        tools:ignore="HardcodedText"
+        android:layout_marginTop="63dp"
+        style="@style/radio_buttons"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/bus"
+        android:checked="false" />
+
+</RelativeLayout>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Calcul IMC (Indice de Masse Corporel)</string>
+    <string name="text_poids">Poids</string>
+    <string name="text_taille">Taille</string>
+    <string name="text_calcul">Calculez votre IMC</string>
+    <string name="text_raz">Effacé toutes les valeurs</string>
+    <string name="Resultat">Resultat: \n</string>
+    <string name="mesure1">Cm</string>
+    <string name="mesure2">Mètres</string>
+    <string name="description_image">image imc</string>
+</resources>
