@@ -1,10 +1,13 @@
 package com.virgile.transporthoraire;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.CharArrayBuffer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -29,45 +32,31 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class directionchoice extends Activity {
 
+
     public class get_sens extends AsyncTask<JSONObject, Void, String[]>{
         @Override
         protected String[] doInBackground(JSONObject... params) {
             JSONObject json = params[0];
-            String[] response = null;
+            String[] response = new String[4];
             String destination_1 = null;
             String destination_2 = null;
-            if (json == null)
-                Log.i("DJAYY", "JSON NULL");
-            Log.i("DJAYY", json.toString());
+            String destination_id_1 = null;
+            String destination_id_2 = null;
             try {
-                String response_str = json.getString("destinations");
-                Log.i("DJAYY", "1");
-                Log.i("DJAYY", response_str);
+                String response_str = json.getString("response");
                 json = new JSONObject(response_str);
-                Log.i("DJAYY", "2");
-                Log.i("DJAYY", json.toString());
-                json = json.getJSONObject("destinations");
-                Log.i("DJAYY", "3");
-                Log.i("DJAYY", json.toString());
-
                 JSONArray test_array = json.getJSONArray("destinations");
-                Log.i("DJAYY", "4");
-                Log.i("DJAYY", test_array.getJSONObject(0).toString());
-
-
-
-//                JSONArray test_array = json.getJSONArray("destinations");
                 destination_1 = test_array.getJSONObject(0).getString("destination");
                 destination_2 = test_array.getJSONObject(1).getString("destination");
-
-                Log.i("DJAYY", destination_1);
-                Log.i("DJAYY", destination_2);
+                destination_id_1 = test_array.getJSONObject(0).getString("id_destination");
+                destination_id_2 = test_array.getJSONObject(1).getString("id_destination");
                 response[0] = destination_1;
-                response[1] = destination_2;
+                response[1] = destination_id_1;
+                response[2] = destination_2;
+                response[3] = destination_id_2;
                 return response;
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.i("DJAYY", "ELSE");
             }
             return null;
         }
@@ -76,37 +65,66 @@ public class directionchoice extends Activity {
         protected void onPostExecute(String[] result) {
             RadioButton destination_a = (RadioButton)findViewById(R.id.destinationA);
             RadioButton destination_b = (RadioButton)findViewById(R.id.destinationB);
-
-            destination_a.setText("toto");
-            if (result != null && result[0] != null)
-                destination_b.setText(result[0]);
+            destination_a.setText(result[0]);
+            destination_b.setText(result[2]);
             super.onPostExecute(result);
         }
     }
-
+    String[] tab_tmp = new String[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.directionchoice);
         String url_direction = MainActivity.url_to_parse;
-        String destination_1 = "";
-        String destination_2 = "";
+        final String[] id_direction = {null};
 
         TextView disp_result = (TextView)findViewById(R.id.test);
-        RadioButton destination_a = (RadioButton)findViewById(R.id.destinationA);
-        RadioButton destination_b = (RadioButton)findViewById(R.id.destinationB);
+        final RadioButton destination_a = (RadioButton)findViewById(R.id.destinationA);
+        final RadioButton destination_b = (RadioButton)findViewById(R.id.destinationB);
+        Button valider = (Button)findViewById(R.id.bouton_suivant2);
 
-        Log.i("DJAYY", "IN DIRECTIONCHOICE");
-        String result = null;
+        destination_a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (destination_a.isChecked() == true)
+                    destination_b.setChecked(false);
+        //        if (tab_tmp[2] != null)
+          //          id_direction[0] = tab_tmp[2];
+            }
+        });
+        destination_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (destination_b.isChecked() == true)
+                    destination_a.setChecked(false);
+      //          if (tab_tmp[0] != null)
+    //                id_direction[0] = tab_tmp[4];
+            }
+        });
+
+        valider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go_selection_stations = new Intent(directionchoice.this, stations.class);
+                if (destination_a.isChecked() || destination_b.isChecked())
+                {
+                    go_selection_stations.putExtra("destination", id_direction);
+                    startActivity(go_selection_stations);
+                }
+            }
+        });
         disp_result.setText(url_direction);
-        Log.i("DJAYY", "URL TO PARSE");
-        Log.i("DJAYY", url_direction);
         DownloadData data = new DownloadData();
         try {
-            data.execute(url_direction).get();
-            JSONObject json = data.result_json;
-            get_sens test = new get_sens();
-            test.execute(json);
+            String str = data.execute(url_direction).get();
+            try {
+                JSONObject json = new JSONObject(str);
+                get_sens fill_buttons = new get_sens();
+                tab_tmp = fill_buttons.execute(json).get();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

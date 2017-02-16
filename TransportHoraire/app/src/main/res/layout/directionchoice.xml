@@ -35,14 +35,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="37dp"
-        android:id="@+id/bouton_suivant"
+        android:id="@+id/bouton_suivant2"
         tools:ignore="HardcodedText" />
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bouton_suivant"
+        android:layout_above="@+id/bouton_suivant2"
         android:layout_alignParentStart="true"
         android:layout_marginStart="23dp"
         android:layout_marginBottom="44dp"

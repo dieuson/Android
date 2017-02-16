@@ -8,19 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
     RadioButton radio_bus;
@@ -41,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         radio_rer = (RadioButton)findViewById(R.id.rer);
         radio_metro = (RadioButton)findViewById(R.id.metro);
         radio_tram = (RadioButton)findViewById(R.id.tram);
-        bouton_valider = (Button)findViewById(R.id.bouton_suivant);
+        bouton_valider = (Button)findViewById(R.id.bouton_suivant2);
 
         radio_bus.setOnClickListener(new View.OnClickListener() {
             @Override

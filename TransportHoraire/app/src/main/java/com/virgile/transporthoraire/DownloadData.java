@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +37,6 @@ public class DownloadData extends AsyncTask<String,Void,String>
         try {
             url = new URL(urls[0]);
             urlConnection = (HttpURLConnection)url.openConnection();
-
             InputStream in = urlConnection.getInputStream();
             InputStreamReader reader = new InputStreamReader(in);
 
@@ -48,6 +48,7 @@ public class DownloadData extends AsyncTask<String,Void,String>
                 data = reader.read();
             }
             result_text = result;
+//            Log.i("DJAYY1", result_text);
             return  result;
         }
         catch (Exception e) {
@@ -61,8 +62,7 @@ public class DownloadData extends AsyncTask<String,Void,String>
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         try {
-            JSONObject jsonObject = new JSONObject(result);
-            result_json = jsonObject;
+            result_json = new JSONObject(result);
 //            JSONObject weatherData = new JSONObject(jsonObject.getString("main"));
 
   //          Double temperature = Double.parseDouble(weatherData.getString("temp"));
