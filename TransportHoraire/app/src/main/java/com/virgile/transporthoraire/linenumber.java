@@ -37,8 +37,11 @@ public class linenumber extends Activity {
                     toast.show();
                     return;
                 }
-                MainActivity.url_to_parse += text_line_number + "/";
+                Intent get_val = getIntent();
                 Intent display_layout = new Intent(linenumber.this, directionchoice.class);
+                display_layout.putExtra("url", get_val.getStringExtra("url"));
+                display_layout.putExtra("mode", get_val.getStringExtra("mode"));
+                display_layout.putExtra("name", text_line_number + "/");
                 startActivity(display_layout);
             }
         });

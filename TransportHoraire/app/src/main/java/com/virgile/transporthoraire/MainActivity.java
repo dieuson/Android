@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
     RadioButton radio_metro;
     RadioButton radio_tram;
     Button bouton_valider;
+    String type = null;
 
-    public static String url_api = "http://api-ratp.pierre-grimaud.fr/v2/bus/347/stations/2149?destination=519";
-    public static String url_to_parse = "http://api-ratp.pierre-grimaud.fr/v2/";
+    String url_to_parse = "http://api-ratp.pierre-grimaud.fr/v2/";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -67,13 +67,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (radio_bus.isChecked())
-                    url_to_parse += "bus/";
+                    type = "bus/";
                 else if (radio_rer.isChecked())
-                    url_to_parse += "rers/";
+                    type = "rers/";
                 else if (radio_tram.isChecked())
-                    url_to_parse += "tramways/";
+                    type = "tramways/";
                 else if (radio_metro.isChecked())
-                    url_to_parse += "metros/";
+                    type = "metros/";
                 else
                 {
                     Context context = getApplicationContext();
@@ -84,11 +84,11 @@ public class MainActivity extends AppCompatActivity {
                     return ;
                 }
                 Intent switch_layou = new Intent(MainActivity.this, linenumber.class);
+                switch_layou.putExtra("url", url_to_parse);
+                switch_layou.putExtra("mode", type);
                 startActivity(switch_layou);
 
             }
         });
-        DownloadData task = new DownloadData();
-        task.execute(url_api);
     }
 }

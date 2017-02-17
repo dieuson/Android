@@ -70,54 +70,29 @@ public class directionchoice extends Activity {
             super.onPostExecute(result);
         }
     }
+
+
+
     String[] tab_tmp = new String[4];
+    String direction = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.directionchoice);
-        String url_direction = MainActivity.url_to_parse;
-        final String[] id_direction = {null};
+        Intent get_val = getIntent();
+        String url_direction = get_val.getStringExtra("url") + get_val.getStringExtra("mode") + get_val.getStringExtra("name");
 
         TextView disp_result = (TextView)findViewById(R.id.test);
         final RadioButton destination_a = (RadioButton)findViewById(R.id.destinationA);
         final RadioButton destination_b = (RadioButton)findViewById(R.id.destinationB);
         Button valider = (Button)findViewById(R.id.bouton_suivant2);
+        String str = null;
 
-        destination_a.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (destination_a.isChecked() == true)
-                    destination_b.setChecked(false);
-        //        if (tab_tmp[2] != null)
-          //          id_direction[0] = tab_tmp[2];
-            }
-        });
-        destination_b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (destination_b.isChecked() == true)
-                    destination_a.setChecked(false);
-      //          if (tab_tmp[0] != null)
-    //                id_direction[0] = tab_tmp[4];
-            }
-        });
-
-        valider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent go_selection_stations = new Intent(directionchoice.this, stations.class);
-                if (destination_a.isChecked() || destination_b.isChecked())
-                {
-                    go_selection_stations.putExtra("destination", id_direction);
-                    startActivity(go_selection_stations);
-                }
-            }
-        });
         disp_result.setText(url_direction);
         DownloadData data = new DownloadData();
         try {
-            String str = data.execute(url_direction).get();
+            str = data.execute(url_direction).get();
             try {
                 JSONObject json = new JSONObject(str);
                 get_sens fill_buttons = new get_sens();
@@ -130,6 +105,37 @@ public class directionchoice extends Activity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+
+        destination_a.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (destination_a.isChecked() == true)
+                    destination_b.setChecked(false);
+                direction = tab_tmp[1];
+            }
+        });
+        destination_b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (destination_b.isChecked() == true)
+                    destination_a.setChecked(false);
+                direction = tab_tmp[3];
+            }
+        });
+
+        final String finalStr = str;
+        valider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (destination_a.isChecked() || destination_b.isChecked())
+                {
+                    Intent go_selection_stations = new Intent(directionchoice.this, stations.class);
+                    go_selection_stations.putExtra("destination", direction);
+                    go_selection_stations.putExtra("json", finalStr);
+                    startActivity(go_selection_stations);
+                }
+            }
+        });
 
 
     }
