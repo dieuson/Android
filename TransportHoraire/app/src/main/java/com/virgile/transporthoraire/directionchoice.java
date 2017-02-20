@@ -2,10 +2,8 @@ package com.virgile.transporthoraire;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.CharArrayBuffer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -15,16 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by dieuson on 2/7/17.
@@ -48,8 +37,8 @@ public class directionchoice extends Activity {
                 JSONArray test_array = json.getJSONArray("destinations");
                 destination_1 = test_array.getJSONObject(0).getString("destination");
                 destination_2 = test_array.getJSONObject(1).getString("destination");
-                destination_id_1 = test_array.getJSONObject(0).getString("id_destination");
-                destination_id_2 = test_array.getJSONObject(1).getString("id_destination");
+                destination_id_1 = test_array.getJSONObject(0).getString("slug");
+                destination_id_2 = test_array.getJSONObject(1).getString("slug");
                 response[0] = destination_1;
                 response[1] = destination_id_1;
                 response[2] = destination_2;
@@ -75,6 +64,7 @@ public class directionchoice extends Activity {
 
     String[] tab_tmp = new String[4];
     String direction = null;
+    String directionName = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +102,7 @@ public class directionchoice extends Activity {
                 if (destination_a.isChecked() == true)
                     destination_b.setChecked(false);
                 direction = tab_tmp[1];
+                directionName = tab_tmp[0];
             }
         });
         destination_b.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +111,7 @@ public class directionchoice extends Activity {
                 if (destination_b.isChecked() == true)
                     destination_a.setChecked(false);
                 direction = tab_tmp[3];
+                directionName = tab_tmp[2];
             }
         });
 
@@ -130,8 +122,15 @@ public class directionchoice extends Activity {
                 if (destination_a.isChecked() || destination_b.isChecked())
                 {
                     Intent go_selection_stations = new Intent(directionchoice.this, stations.class);
+                    Intent get_val = getIntent();
+
                     go_selection_stations.putExtra("destination", direction);
+                    go_selection_stations.putExtra("destinationName", directionName);
                     go_selection_stations.putExtra("json", finalStr);
+
+                    go_selection_stations.putExtra("url", get_val.getStringExtra("url"));
+                    go_selection_stations.putExtra("mode", get_val.getStringExtra("mode"));
+                    go_selection_stations.putExtra("name", get_val.getStringExtra("name"));
                     startActivity(go_selection_stations);
                 }
             }

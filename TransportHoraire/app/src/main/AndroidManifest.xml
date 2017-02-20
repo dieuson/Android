@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".linenumber"/>
         <activity android:name=".directionchoice"/>
-        <activity android:name=".stations"/>
+        <activity android:name=".stations"></activity>
+        <activity android:name=".affichage"></activity>
     </application>
 
 </manifest>
