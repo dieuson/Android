@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.virgile.eat4share.RegisterActivity">
+
+    <EditText
+        android:id="@+id/userNameET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nom" />
+
+    <EditText
+        android:id="@+id/userEmailET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Adresse e-mail"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/passwordET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mot de passe"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/confirmPasswordET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirmation mot de passe"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/submitRegisterBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Je m'inscris" />
+
+</LinearLayout>

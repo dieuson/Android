@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.virgile.eat4share.HistoryRightItemViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="81dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#BDC3C7"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/history_background_restaurant_color_2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="33dp"
+            android:isIndicator="true"
+            android:rating="@{item.restaurantRatingStars}"
+            android:numStars="5"
+            android:theme="@style/RatingBar"
+            app:layout_constraintRight_toLeftOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            tools:rating="5" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:text="@{item.restaurantName}"
+            android:textAlignment="center"
+            android:textColor="@color/history_restaurant_text_color"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView4"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@+id/view"
+            app:layout_constraintRight_toRightOf="@+id/view"
+            app:layout_constraintTop_toTopOf="@+id/view"
+            app:layout_constraintVertical_bias="0.51"
+            tools:text="Les Jardins de l'Espadon\n\nRitz Paris" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@{item.restaurantNote}"
+            android:textAlignment="center"
+            android:textColor="@color/history_restaurant_text_color"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintLeft_toLeftOf="@+id/view"
+            app:layout_constraintRight_toRightOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="10 / 10" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="right"
+            android:text="@{item.restaurantDescription}"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Cadre prestigieux, service simplet et convivial, cuisine parfaite. Tout est parfait, par exemple les cannellonis ou la raviole végétale en entrée, le bar ou le merlan, le pigeon ou le ris de veau. Cuisson parfaites, chair fondante et peau craquante, un délice !" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
