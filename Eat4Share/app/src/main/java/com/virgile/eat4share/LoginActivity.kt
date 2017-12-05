@@ -10,7 +10,6 @@ import com.facebook.login.LoginResult
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 import java.util.*
 import kotlin.collections.HashMap
@@ -27,7 +26,8 @@ class LoginActivity : Activity() {
         setContentView(R.layout.activity_login)
 
         testRegister.setOnClickListener {
-            val intent = Intent(baseContext, HistoryActivity().javaClass)
+            //            val intent = Intent(baseContext, HistoryActivity().javaClass)
+                        val intent = Intent(baseContext, MapsActivity().javaClass)
             startActivity(intent)
         }
 

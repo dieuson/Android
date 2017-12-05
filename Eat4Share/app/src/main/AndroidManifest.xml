@@ -3,6 +3,10 @@
     package="com.virgile.eat4share">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +18,9 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyASca2wDR-97t24y21KEOZ6fqQcFxptHTw" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -53,7 +60,13 @@
                 android:value="com.virgile.eat4share.HomeActivity" />
         </activity>
         <activity android:name=".RateYourMealActivity" />
-        <activity android:name=".FindYourMealActivity"></activity>
+        <activity android:name=".FindYourMealActivity" />
+        <activity
+            android:name=".AroundMe"
+            android:label="@string/title_activity_arround_me" />
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

@@ -12,9 +12,9 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="81dp">
 
@@ -42,8 +42,8 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="33dp"
             android:isIndicator="true"
-            android:rating="@{item.restaurantRatingStars}"
             android:numStars="5"
+            android:rating="@{item.restaurantRatingStars}"
             android:theme="@style/RatingBar"
             app:layout_constraintRight_toLeftOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/view"

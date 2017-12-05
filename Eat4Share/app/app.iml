@@ -17,7 +17,7 @@
         <option name="ALLOW_USER_CONFIGURATION" value="false" />
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
-        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/src/main/res;file://$MODULE_DIR$/src/debug/res" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
@@ -25,9 +25,15 @@
       <configuration version="3" platform="JVM 1.8" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/build/tmp/kotlin-classes/debug" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="app_debug" />
           <option name="jvmTarget" value="1.8" />
-          <option name="languageVersion" value="1.1" />
-          <option name="apiVersion" value="1.1" />
+          <option name="addCompilerBuiltIns" value="true" />
+          <option name="loadBuiltInsFromDependencies" value="true" />
+          <option name="languageVersion" value="1.2" />
+          <option name="apiVersion" value="1.2" />
           <option name="pluginOptions">
             <array>
               <option value="plugin:org.jetbrains.kotlin.android:experimental=false" />
@@ -36,7 +42,9 @@
             </array>
           </option>
           <option name="pluginClasspaths">
-            <array />
+            <array>
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.0/41b2a2ff56ce9abefb0d0d9d9750cdae749e9143/kotlin-android-extensions-1.2.0.jar" />
+            </array>
           </option>
         </compilerArguments>
       </configuration>
@@ -111,6 +119,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/bundles" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes-jar" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/data-binding-compiler" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/data-binding-info" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
@@ -121,6 +130,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
@@ -139,87 +149,89 @@
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:exposed-instrumentation-api-publish-0.5" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-places-4.27.0" level="project" />
     <orderEntry type="library" name="com.twitter:twitter-text:1.14.3@jar" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-base-license-11.4.2" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-base-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:retrofit:2.1.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:cardview-v7-25.3.1" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-banner-4.11.0" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-share-4.27.0" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-common-4.28.0" level="project" />
+    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.2.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.squareup:javawriter:2.1.1@jar" level="project" />
     <orderEntry type="library" name="com.android.databinding:library-1.3.1" level="project" />
     <orderEntry type="library" name="com.parse.bolts:bolts-tasks:1.4.0@jar" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-4.11.0" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-basement-license-11.4.2" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-basement-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-messenger-4.27.0" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-native-static-4.11.0" level="project" />
     <orderEntry type="library" name="com.android.support.constraint:constraint-layout-1.0.2" level="project" />
+    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-fragment-25.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="com.google.code.findbugs:jsr305:2.0.1@jar" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-android-sdk-4.27.0" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-core:1.3@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test.espresso:espresso-core-2.2.2" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-25.4.0" level="project" />
     <orderEntry type="library" name="com.google.android.exoplayer:exoplayer-r1.5.6" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-basement-11.6.2" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-ads-11.6.2" level="project" />
     <orderEntry type="library" name="com.squareup.okhttp3:okhttp:3.4.2@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:rules-0.5" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-ads-11.4.2" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-tasks-11.4.2" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-ads-lite-license-11.4.2" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-tasks-11.6.2" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-25.4.0" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-ads-lite-11.6.2" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-location-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-native-video-4.11.0" level="project" />
     <orderEntry type="library" name="com.google.zxing:core:3.3.0@jar" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-ads-lite-license-11.6.2" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test.espresso:espresso-idling-resource-2.2.2" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-ads-lite-11.4.2" level="project" />
     <orderEntry type="library" name="com.squareup.picasso:picasso:2.5.2@jar" level="project" />
     <orderEntry type="library" name="com.mopub.volley:mopub-volley:1.1.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="javax.annotation:javax.annotation-api:1.2@jar" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-login-4.27.0" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-base-11.4.2" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-applinks-4.27.0" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-base-11.6.2" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-core-4.28.0" level="project" />
     <orderEntry type="library" name="com.android.support:customtabs-25.3.1" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-tasks-license-11.4.2" level="project" />
-    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib-jre7:1.1.51@jar" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-places-4.28.0" level="project" />
     <orderEntry type="library" name="com.twitter.sdk.android:tweet-ui-3.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="com.twitter.sdk.android:twitter-core-3.1.1" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-common-4.27.0" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-interstitial-4.11.0" level="project" />
     <orderEntry type="library" scope="TEST" name="javax.inject:javax.inject:1@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-core-ui-25.4.0" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-share-4.28.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-compat-25.4.0" level="project" />
-    <orderEntry type="library" name="com.android.databinding:baseLibrary:3.0.0-rc1@jar" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-maps-license-11.4.2" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-gass-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.parse.bolts:bolts-applinks:1.4.0@jar" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-basement-11.4.2" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-maps-license-11.6.2" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-messenger-4.28.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:25.4.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-core-utils-25.4.0" level="project" />
     <orderEntry type="library" name="com.google.code.gson:gson:2.7@jar" level="project" />
     <orderEntry type="library" name="com.android.databinding:adapters-1.3.1" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-25.4.0" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-ads-license-11.6.2" level="project" />
     <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.1.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-media-compat-25.4.0" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-ads-license-11.4.2" level="project" />
     <orderEntry type="library" name="com.twitter.sdk.android:twitter-mopub-3.1.1" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-maps-11.6.2" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-rewardedvideo-4.11.0" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-android-sdk-4.28.0" level="project" />
     <orderEntry type="library" name="com.github.nitrico.lastadapter:lastadapter-2.2.2" level="project" />
     <orderEntry type="library" name="com.parse.bolts:bolts-android:1.4.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:design-25.4.0" level="project" />
     <orderEntry type="library" name="com.android.support:transition-25.4.0" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-library:1.3@jar" level="project" />
-    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.1.51@jar" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-maps-11.4.2" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-gass-license-11.4.2" level="project" />
     <orderEntry type="library" scope="TEST" name="com.android.support.test:runner-0.5" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-location-11.6.2" level="project" />
+    <orderEntry type="library" name="com.android.databinding:baseLibrary:3.0.1@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-gass-11.6.2" level="project" />
     <orderEntry type="library" name="com.mopub:mopub-sdk-base-4.11.0" level="project" />
     <orderEntry type="library" name="com.twitter.sdk.android:tweet-composer-3.1.1" level="project" />
-    <orderEntry type="library" name="com.facebook.android:facebook-core-4.27.0" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-login-4.28.0" level="project" />
     <orderEntry type="library" name="com.android.support:support-vector-drawable-25.4.0" level="project" />
     <orderEntry type="library" name="com.android.support:recyclerview-v7-25.4.0" level="project" />
-    <orderEntry type="library" name="com.google.android.gms:play-services-gass-11.4.2" level="project" />
     <orderEntry type="library" name="com.squareup.okio:okio:1.9.0@jar" level="project" />
+    <orderEntry type="library" name="com.google.android.gms:play-services-tasks-license-11.6.2" level="project" />
+    <orderEntry type="library" name="com.facebook.android:facebook-applinks-4.28.0" level="project" />
   </component>
 </module>
