@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="history_background_restaurant_color_1">#F16941</color>
+    <color name="history_background_restaurant_color_2">#3C5A5E</color>
+    <color name="history_background_restaurant_color_3">#35C4AF</color>
+    <color name="history_restaurant_text_color">#F6F7F9</color>
+    <color name="histoy_text_color">#364E52</color>
+</resources>

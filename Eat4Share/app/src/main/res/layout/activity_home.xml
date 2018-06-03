@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.virgile.eat4share.HomeActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ad_view"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:rowCount="2">
+
+        <ImageButton
+            android:id="@+id/rateYourMealIB"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="2dp"
+            android:layout_rowWeight="1"
+            android:src="@drawable/star"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/findYourMealIB"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_rowWeight="1"
+            android:src="@drawable/placeholder"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/historyIB"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_rowWeight="1"
+            android:src="@drawable/history_button"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/shareTheApplicationIB"
+            android:layout_columnWeight="1"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_rowWeight="1"
+            android:src="@drawable/share"
+            android:textStyle="bold" />
+    </GridLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/addsView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>
