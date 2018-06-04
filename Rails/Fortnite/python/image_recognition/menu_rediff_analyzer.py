@@ -114,31 +114,13 @@ def get_contours(image):
                     # locs.append((x, y))
                 locs.append((x, y, w, h))
 
-    # locs.sort(key=itemgetter(0))
     locs.sort(key=itemgetter(1))
-    # locs = sorted(locs, key=lambda x:x[0])
-    # locs = sorted(locs, key=lambda y:y[1])
-    # print(locs)
-    # print(locs)
     return locs
 
 def set_line_index(line):
     all_data = []
     index_names = ["name", "date", "duration", "rank", "eliminations"]
-    # print(line)
     for i, e in enumerate(line):
-        # array_data = []
-        # if (e[0] > 100 and e[0] < 200):
-        #     array_data = ["name", e]
-        # elif (e[0] < 600):
-        #     array_data = ["date", e]
-        # elif (e[0] < 800):
-        #     array_data = ["duration", e]
-        # elif (e[0] < 900):
-        #     array_data = ["rank", e]
-        # else:
-        #     array_data = ["eliminations", e]
-        # all_data.append(array_data)
         all_data.append([index_names[i], e])
     return all_data
 
@@ -214,32 +196,14 @@ def convert_locs_to_lines(locs):
     relevant_line_positions = detect_line_positions(locs, relevant_column_positions)
     print(relevant_line_positions)
     prev_line = 0
-    # exit(0)
     for (i, (x, y, w, h)) in enumerate(locs):
         element = (x, y, w, h)
-
-
-        # if (ref_y == 0):
-        #     ref_y = y
-        # if ((y - ref_y) > 8):
-
-
-        # if (is_a_relevant_line(y, relevant_line_positions)):
-        # if (is_a_relevant_column(x, relevant_column_positions)):
-
-        # if (is_a_relevant_column(y, relevant_column_positions)):
         if (prev_line != 0 and (y - prev_line) > SPACE_BETWEEN_LINES):
             line.sort(key=itemgetter(0))
             line = set_line_index(line[:5])
-            # if (len(line) == 5):
-                # print(len(line))
-                # print(line)
             lines.append(line)
             print("\n\n")
             print(y)
-            # else:
-                # print(len(line))
-                # print("\n\n")
             line = [element]
             ref_y = y
         else:
@@ -251,17 +215,7 @@ def convert_locs_to_lines(locs):
     line.sort(key=itemgetter(0))
     line = set_line_index(line)
     lines.append(line)
-    # exit(0)
     return lines
-
-# def convert_locs_to_lines(locs):
-#     ref_y = 0
-#     line = []
-#     lines = []
-#     for (i, (x, y, w, h)) in enumerate(locs):
-#         element = (x, y, w, h)
-#         lines.append(element)
-#     return lines
 
 def get_reddif_lines_content(image, temp_filename):
     im = cv2.imread(temp_filename)
@@ -275,10 +229,10 @@ def get_reddif_lines_content(image, temp_filename):
  
     output = []
     line_number = 1
-    line_infos = {}
     # print(line)
     for (line) in lines:
     # for (i, (gX, gY, gW, gH)) in enumerate(lines):
+        line_infos = {}
         print("\n\nLine: {}".format(line_number))
         for k in line:
             part_type = k[0]
