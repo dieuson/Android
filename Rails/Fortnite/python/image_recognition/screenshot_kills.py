@@ -37,7 +37,6 @@ def process_image_for_ocr(file_path):
     im_new = remove_noise_and_smooth(temp_filename)
     return im_new, temp_filename
 
-
 def set_image_dpi(file_path):
     im = Image.open(file_path)
     length_x, width_y = im.size
@@ -109,9 +108,8 @@ def get_contours(image):
         (x, y, w, h) = cv2.boundingRect(c)
         y_ratio = y / height
         x_ratio = x / width
-        if (x_ratio > 0.01 and x_ratio < 0.8 and w > 5 and h > 5):
-            if y_ratio > 0.15 and y_ratio < 0.58:
-                    # locs.append((x, y))
+        if (x_ratio >= 0.01 and x_ratio <= 0.75 and w > 5 and h > 5):
+            if y_ratio >= 0.0 and y_ratio < 0.12 or y_ratio > 0.3 and y_ratio <= 0.55:
                 locs.append((x, y, w, h))
 
     locs.sort(key=itemgetter(1))
@@ -189,7 +187,7 @@ def is_a_relevant_line(y_position, relevant_column_positions):
     return False
 
 def convert_locs_to_lines(locs):
-    ref_y = 0
+    # ref_y = 0
     line = []
     lines = []
     relevant_column_positions = detect_column_positions(locs)
@@ -200,7 +198,7 @@ def convert_locs_to_lines(locs):
         element = (x, y, w, h)
         if (prev_line != 0 and (y - prev_line) > SPACE_BETWEEN_LINES):
             line.sort(key=itemgetter(0))
-            line = set_line_index(line[:5])
+            # line = set_line_index(line[:5])
             lines.append(line)
             print("\n\n")
             print(y)
@@ -213,7 +211,7 @@ def convert_locs_to_lines(locs):
         prev_line = y
 
     line.sort(key=itemgetter(0))
-    line = set_line_index(line)
+    # line = set_line_index(line)
     lines.append(line)
     return lines
 
@@ -225,6 +223,11 @@ def get_reddif_lines_content(image, temp_filename):
     #     return
     locs = get_contours(im)
     lines = convert_locs_to_lines(locs)
+    print("\n\nTEST|")
+    for line in lines:
+        print(line)
+        print("\n\n")
+    # lines = locs
     digits = {}
  
     output = []
@@ -232,26 +235,35 @@ def get_reddif_lines_content(image, temp_filename):
     # print(line)
     for (line) in lines:
     # for (i, (gX, gY, gW, gH)) in enumerate(lines):
+
         line_infos = {}
         print("\n\nLine: {}".format(line_number))
         for k in line:
-            part_type = k[0]
-            (gX, gY, gW, gH) = k[1]
+            # part_type = k[0]
+            (gX, gY, gW, gH) = k
             group = image[gY - 5:gY + gH + 5, gX - 5:gX + gW + 5]
             group = cv2.threshold(group, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-            text = pytesseract.image_to_string(group, lang = 'fra',config='--psm 7')
-            print("{}: {}".format(part_type ,text))
-            line_infos[part_type] = text
+
+            cv2.rectangle(im, (200, 100), (1450, 600), (0, 255, 0), 2)
+
+            cv2.rectangle(im, (200 + 5, 100 + 5), (1450, 300), (255, 0, 0), 2)
+
+            cv2.rectangle(im, (200 + 5, 350 + 5), (1450, 600), (255, 255, 0), 2)
+
+
+            # text = pytesseract.image_to_string(group, lang = 'fra',config='--psm 7')
+            # print("{}: {}".format(part_type ,text))
+            # line_infos[part_type] = text
             cv2.rectangle(im, (gX - 5, gY - 5), (gX + gW + 5, gY + gH + 5), (0, 0, 255), 2)
             line_number += 1
-        all_file_data.append(line_infos)
+        # all_file_data.append(line_infos)
     # print(all_file_data)
     # display_image(im)
 
     # exit(0)
 
-    # if (display_image(im) == False):
-    #     exit(0)
+    if (display_image(im) == False):
+        exit(0)
     #     return
     return all_file_data
 
@@ -260,27 +272,32 @@ def get_reddif_lines_content(image, temp_filename):
 filename = "../../pictures/rediff.png"
 
 # pictures_directory_example = "/home/dieuson/Desktop/PS4/27-04-2018/results/all_screenshots/"
-pictures_directory_example = "../../pictures/menu_rediffs/"
+pictures_directory_example = "../../pictures/kills/"
 all_files = [f for f in listdir(pictures_directory_example) if isfile(join(pictures_directory_example, f))]
 all_files.sort()
 # all_files = all_files[14:]
 # all_files = all_files[38:]
 all_screenshots_data = []
 
-json_data=open('all_screenshots_data.json').read()
-all_screenshots_data = json.loads(json_data)
+# json_data=open('all_screenshots_data.json').read()
+# all_screenshots_data = json.loads(json_data)
 
+top_filename = "../../pictures/chat_kill/ATN___Singed404___0.png"
+# kills_filename = "../../pictures/kills/Agents_d’élite___Cyrilinho____0.png"
+kills_filename = "../../pictures/kills/ATN___Diego-ForMax___5.png"
+all_files = all_files[3:]
 for filename in all_files:
     # filename = all_files[0]
-    already_analysed = False
+    # already_analysed = False
+    # filename = pictures_directory_example + kills_filename
     filename = pictures_directory_example + filename
     # print(filename)
-    for screenshot_data in all_screenshots_data:
-        if filename in screenshot_data["path"]:
-            already_analysed = True
-    if (already_analysed):
-        print("Already analysed")
-        continue
+    # for screenshot_data in all_screenshots_data:
+    #     if filename in screenshot_data["path"]:
+    #         already_analysed = True
+    # # if (already_analysed):
+    #     print("Already analysed")
+    #     continue
 
     image, temp_filename = process_image_for_ocr(filename)
     file_data = get_reddif_lines_content(image, temp_filename)
