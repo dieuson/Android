@@ -6,14 +6,22 @@ from PIL import Image
 import pytesseract
 from imutils import contours
 import imutils
+from operator import itemgetter
+from os import listdir
+from os.path import isfile, join
+
 
 IMAGE_SIZE = 1800
 BINARY_THREHOLD = 180
 
 def display_image(img):
     cv2.imshow('image', img)
-    cv2.waitKey(0)
+    k = cv2.waitKey(0)
     cv2.destroyAllWindows()
+    if (k == 82):
+        return True
+    else:
+        return False
 
 def process_image_for_ocr(file_path):
     # TODO : Implement using opencv
@@ -93,44 +101,99 @@ def get_contours(image):
         (x, y, w, h) = cv2.boundingRect(c)
         ar = y / height
         if (x > 80 and x < (width - 300)):
-            if ar > 0.2 and ar < 0.25:
+            if ar > 0.2 and ar < 0.58:
+                # locs.append((x, y))
                 locs.append((x, y, w, h))
 
-    locs = sorted(locs, key=lambda y:y[0])
+    # locs.sort(key=itemgetter(0))
+    locs.sort(key=itemgetter(1))
+    # locs = sorted(locs, key=lambda x:x[0])
+    # locs = sorted(locs, key=lambda y:y[1])
+    # print(locs)
+    # print(locs)
     return locs
 
-def draw_rectangles(image, temp_filename):
+def set_line_index(line):
+    all_data = []
+    for e in line:
+        array_data = []
+        if (e[0] < 200):
+            array_data = ["name", e]
+        elif (e[0] < 600):
+            array_data = ["date", e]
+        elif (e[0] < 800):
+            array_data = ["duration", e]
+        elif (e[0] < 900):
+            array_data = ["rank", e]
+        else:
+            array_data = ["eliminations", e]
+        all_data.append(array_data)
+    return all_data
+
+
+def convert_locs_to_lines(locs):
+    ref_y = 0
+    line = []
+    lines = []
+    for (i, (x, y, w, h)) in enumerate(locs):
+        element = (x, y, w, h)
+        if (ref_y == 0):
+            ref_y = y
+        if ((y - ref_y) > 3):
+            line.sort(key=itemgetter(0))
+            line = set_line_index(line)
+            if (len(line) == 5):
+                lines.append(line)
+            line = [element]
+            ref_y = y
+        else:
+            line.append(element)
+
+    line.sort(key=itemgetter(0))
+    line = set_line_index(line)
+    lines.append(line)
+    return lines
+
+def get_reddif_lines_content(image, temp_filename):
     im = cv2.imread(temp_filename)
+    all_file_data = []
+    if (display_image(im) == False):
+        return
     locs = get_contours(im)
+    lines = convert_locs_to_lines(locs)
     digits = {}
  
     output = []
-
-    # loop over the 4 groupings of 4 digits
-    for (i, (gX, gY, gW, gH)) in enumerate(locs):
-        # initialize the list of group digits
-        groupOutput = []
-     
-        # extract the group ROI of 4 digits from the grayscale image,
-        # then apply thresholding to segment the digits from the
-        # background of the credit card
-        group = image[gY - 5:gY + gH + 5, gX - 5:gX + gW + 5]
-        # group = cv2.adaptiveThreshold(group,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
-     #            cv2.THRESH_BINARY,11,2)
-        group = cv2.threshold(group, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-        # detect the contours of each individual digit in the group,
-        # then sort the digit contours from left to right
-        text = pytesseract.image_to_string(group, lang = 'fra',config='--psm 7')
-        print(text)
-        display_image(group)
-        cv2.rectangle(im, (gX - 5, gY - 5), (gX + gW + 5, gY + gH + 5), (0, 0, 255), 2)
+    line_number = 1
+    line_infos = {}
+    for (line) in lines:
+        print("\n\nLine: {}".format(line_number))
+        for k in line:
+            part_type = k[0]
+            (gX, gY, gW, gH) = k[1]
+            group = image[gY - 5:gY + gH + 5, gX - 5:gX + gW + 5]
+            group = cv2.threshold(group, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+            text = pytesseract.image_to_string(group, lang = 'fra',config='--psm 7')
+            print("{}: {}".format(part_type ,text))
+            line_infos[part_type] = text
+            cv2.rectangle(im, (gX - 5, gY - 5), (gX + gW + 5, gY + gH + 5), (0, 0, 255), 2)
+        line_number += 1
+    all_file_data.append(line_infos)
+    print(all_file_data)
     display_image(im)
 
 
 
 
 filename = "../../pictures/rediff.png"
-image, temp_filename = process_image_for_ocr(filename)
-draw_rectangles(image, temp_filename)
-text = pytesseract.image_to_string(image, lang = 'fra')
-print(text)
+
+pictures_directory_example = "/home/dieuson/Desktop/PS4/27-04-2018/results/all_screenshots/"
+all_files = [f for f in listdir(pictures_directory_example) if isfile(join(pictures_directory_example, f))]
+
+for filename in all_files:
+    filename = pictures_directory_example + filename
+    image, temp_filename = process_image_for_ocr(filename)
+    get_reddif_lines_content(image, temp_filename)
+
+# text = pytesseract.image_to_string(image, lang = 'fra')
+# print(text)
