@@ -11,6 +11,8 @@ from os import listdir
 from os.path import isfile, join
 import operator
 import json
+from . import rediff_postprocessing
+# import rediff_postprocessing
 
 
 IMAGE_SIZE = 1800
@@ -194,7 +196,7 @@ def convert_locs_to_lines(locs):
     lines = []
     relevant_column_positions = detect_column_positions(locs)
     relevant_line_positions = detect_line_positions(locs, relevant_column_positions)
-    print(relevant_line_positions)
+    # print(relevant_line_positions)
     prev_line = 0
     for (i, (x, y, w, h)) in enumerate(locs):
         element = (x, y, w, h)
@@ -202,92 +204,109 @@ def convert_locs_to_lines(locs):
             line.sort(key=itemgetter(0))
             line = set_line_index(line[:5])
             lines.append(line)
-            print("\n\n")
-            print(y)
+            # print("\n\n")
+            # print(y)
             line = [element]
             ref_y = y
         else:
             line.append(element)
-            print(y)
+            # print(y)
         #     line.append(element)
         prev_line = y
 
     line.sort(key=itemgetter(0))
-    line = set_line_index(line)
+    line = set_line_index(line[:5])
     lines.append(line)
     return lines
+
+def extract_part_info(group, line_infos, part_type):
+    text = pytesseract.image_to_string(group, lang = 'fra',config='--psm 7')
+    if ("DATE" in text or "NOM" in text):
+        return None
+    line_infos[part_type] = rediff_postprocessing.process(part_type, text)
+    if (line_infos[part_type] is None):
+        return None
+    print("{}: {}".format(part_type ,line_infos[part_type]))
+    return(line_infos)
 
 def get_reddif_lines_content(image, temp_filename):
     im = cv2.imread(temp_filename)
     all_file_data = []
-    # if (display_image(im) == False):
-    #     exit(0)
-    #     return
     locs = get_contours(im)
     lines = convert_locs_to_lines(locs)
     digits = {}
  
     output = []
     line_number = 1
-    # print(line)
     for (line) in lines:
-    # for (i, (gX, gY, gW, gH)) in enumerate(lines):
         line_infos = {}
         print("\n\nLine: {}".format(line_number))
+        if (len(line) != 5):
+            continue
         for k in line:
             part_type = k[0]
             (gX, gY, gW, gH) = k[1]
             group = image[gY - 5:gY + gH + 5, gX - 5:gX + gW + 5]
             group = cv2.threshold(group, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-            text = pytesseract.image_to_string(group, lang = 'fra',config='--psm 7')
-            print("{}: {}".format(part_type ,text))
-            line_infos[part_type] = text
+
+            line_infos = extract_part_info(group, line_infos, part_type)
+            if (line_infos is None):
+                break
             cv2.rectangle(im, (gX - 5, gY - 5), (gX + gW + 5, gY + gH + 5), (0, 0, 255), 2)
+
+
             line_number += 1
-        all_file_data.append(line_infos)
-    # print(all_file_data)
-    # display_image(im)
-
-    # exit(0)
-
-    # if (display_image(im) == False):
-    #     exit(0)
-    #     return
+        if (line_infos):
+            all_file_data.append(line_infos)
+    display_image(im)
     return all_file_data
 
-
-
-filename = "../../pictures/rediff.png"
-
-# pictures_directory_example = "/home/dieuson/Desktop/PS4/27-04-2018/results/all_screenshots/"
-pictures_directory_example = "../../pictures/menu_rediffs/"
-all_files = [f for f in listdir(pictures_directory_example) if isfile(join(pictures_directory_example, f))]
-all_files.sort()
-# all_files = all_files[14:]
-# all_files = all_files[38:]
-all_screenshots_data = []
-
-json_data=open('all_screenshots_data.json').read()
-all_screenshots_data = json.loads(json_data)
-
-for filename in all_files:
-    # filename = all_files[0]
-    already_analysed = False
-    filename = pictures_directory_example + filename
-    # print(filename)
-    for screenshot_data in all_screenshots_data:
-        if filename in screenshot_data["path"]:
-            already_analysed = True
-    if (already_analysed):
-        print("Already analysed")
-        continue
-
+def analyse_screenshot(filename):
     image, temp_filename = process_image_for_ocr(filename)
     file_data = get_reddif_lines_content(image, temp_filename)
     hash_data = {"path": filename, "data": file_data}
-    all_screenshots_data.append(hash_data)
-    # with open('all_screenshots_data.json', 'w') as outfile:
-    #     json.dump(all_screenshots_data, outfile)
+    print(hash_data)
+    return hash_data
 
+
+def test_image_recognition():
+    filename = "../../pictures/rediff.png"
+
+    # pictures_directory_example = "/home/dieuson/Desktop/PS4/27-04-2018/results/all_screenshots/"
+    pictures_directory_example = "../../pictures/menu_rediffs/"
+    all_files = [f for f in listdir(pictures_directory_example) if isfile(join(pictures_directory_example, f))]
+    all_files.sort()
+    # all_files = all_files[14:]
+    # all_files = all_files[38:]
+    all_screenshots_data = []
+
+    json_data=open('all_screenshots_data.json').read()
+    all_screenshots_data = json.loads(json_data)
+
+    for filename in all_files:
+        # filename = all_files[0]
+        already_analysed = False
+        # filename = "Kappa_Army___BliTztangBliTz___4.png"
+        filename = pictures_directory_example + filename
+        # filename = "../../pictures/kills/Agents_d’élite___Cyrilinho____0.png"
+        # filename = "../../pictures/chat_kill/ATN___Singed404___0.png"
+        # print(filename)
+        for screenshot_data in all_screenshots_data:
+            if filename in screenshot_data["path"]:
+                already_analysed = True
+        if (already_analysed):
+            print("Already analysed")
+            # continue
+
+        image, temp_filename = process_image_for_ocr(filename)
+        file_data = get_reddif_lines_content(image, temp_filename)
+        hash_data = {"path": filename, "data": file_data}
+        all_screenshots_data.append(hash_data)
+        # with open('all_screenshots_data_2.json', 'w') as outfile:
+        #     json.dump(all_screenshots_data, outfile)
+        exit(0)
 # text = pytesseract.image_to_string(image, lang = 'fra')
 # print(text)
+
+# test_image_recognition()
+
